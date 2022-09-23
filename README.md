@@ -1,6 +1,6 @@
 # Advertising Info Script
 
-The main idea of this project is to create a script that can be injected info the website with online advertising and show all the data connected to it.
+The main idea of this project is to create a script that can be injected into the website with online advertising and show all the data connected to it.
 
 
 ## Parts of the project
