@@ -46,42 +46,46 @@ function App() {
   return (
     <AppBlock>
       <Title>Ad Units Config</Title>
-      <TableWrapper>
-        <Table>
-          <tr>
-            <th>Ad Unit Code</th>
-            <th>Sizes</th>
-            <th>Bidders</th>
-            <th>Ad Unit Path</th>
-          </tr>
-          {dataConfiguration.map(
-            ({ adUnitCode, adUnitPath, sizes, bidders }) => (
-              <tr>
-                <td>{adUnitCode}</td>
-                <td>
-                  <div>
-                    {Object.keys(sizes).map((key) => {
-                      const label = mapAdUnitType[key as AdUnitType];
-                      const currentSizes = sizes[key as AdUnitType]?.map(
-                        (arr) => `(${arr[0]}, ${arr[1]})`
-                      );
-                      if (currentSizes?.length === 0) {
-                        return "None";
-                      }
+      {dataConfiguration.length !== 0 ? (
+        <TableWrapper>
+          <Table>
+            <tr>
+              <th>Ad Unit Code</th>
+              <th>Sizes</th>
+              <th>Bidders</th>
+              <th>Ad Unit Path</th>
+            </tr>
+            {dataConfiguration.map(
+              ({ adUnitCode, adUnitPath, sizes, bidders }) => (
+                <tr>
+                  <td>{adUnitCode}</td>
+                  <td>
+                    <div>
+                      {Object.keys(sizes).map((key) => {
+                        const label = mapAdUnitType[key as AdUnitType];
+                        const currentSizes = sizes[key as AdUnitType]?.map(
+                          (arr) => `(${arr[0]}, ${arr[1]})`
+                        );
+                        if (currentSizes?.length === 0) {
+                          return "None";
+                        }
 
-                      return (
-                        <div>{`${label}: ${currentSizes?.join(", ")}`}</div>
-                      );
-                    })}
-                  </div>
-                </td>
-                <td>{bidders.join(", ")}</td>
-                <UnitPathCell>{adUnitPath}</UnitPathCell>
-              </tr>
-            )
-          )}
-        </Table>
-      </TableWrapper>
+                        return (
+                          <div>{`${label}: ${currentSizes?.join(", ")}`}</div>
+                        );
+                      })}
+                    </div>
+                  </td>
+                  <td>{bidders.join(", ")}</td>
+                  <UnitPathCell>{adUnitPath}</UnitPathCell>
+                </tr>
+              )
+            )}
+          </Table>
+        </TableWrapper>
+      ) : (
+        <Subtitle>No Ad Units Found!</Subtitle>
+      )}
       <Title>Active Bidders Info</Title>
       {dataActiveBidders.length !== 0 ? (
         <TableWrapper>
@@ -107,7 +111,7 @@ function App() {
           </Table>
         </TableWrapper>
       ) : (
-        <Title>No Active Bidders Found!</Title>
+        <Subtitle>No Active Bidders Found!</Subtitle>
       )}
       <CloseButton onClick={handleClose}>Close</CloseButton>
     </AppBlock>
@@ -117,8 +121,9 @@ function App() {
 export default App;
 
 const CloseButton = styled.button`
-  background-color: pink;
+  background-color: #ffdfe4;
   padding: 0.5rem;
+  color: #f28698;
   margin: 1rem auto;
   border: 1px solid #f28698;
   border-radius: 0.25rem;
@@ -136,6 +141,12 @@ const Title = styled.h1`
   color: #e68a9a;
   margin-bottom: 0.5rem;
 `;
+
+const Subtitle = styled.h3`
+  text-align: center;
+  color: #f3bcc6;
+`;
+
 const TableWrapper = styled.div`
   display: flex;
   flex-direction: column;
